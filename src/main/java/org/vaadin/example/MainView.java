@@ -3,6 +3,7 @@ package org.vaadin.example;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -42,11 +43,13 @@ public class MainView extends VerticalLayout {
     public MainView(@Autowired GreetService service) {
 
         // Use TextField for standard text input
-        TextField textField = new TextField("Your name");
+        TextField textField = new TextField("Input Your Name");
 
+        DatePicker birthDate = new DatePicker();
+        birthDate.setPlaceholder("BirthDate");    
         // Button click listeners can be defined as lambda expressions
         Button button = new Button("Say hello",
-                e -> Notification.show(service.greet(textField.getValue())));
+                e -> Notification.show(service.greet(textField.getValue() + "\n" + birthDate.getValue())));
 
         // Theme variants give you predefined extra styles for components.
         // Example: Primary button is more prominent look.
@@ -59,7 +62,7 @@ public class MainView extends VerticalLayout {
         // Use custom CSS classes to apply styling. This is defined in shared-styles.css.
         addClassName("centered-content");
 
-        add(textField, button);
+        add(textField, birthDate, button);
     }
 
 }
